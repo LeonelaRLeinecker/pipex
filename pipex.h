@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*	                                                                    */
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -19,18 +19,16 @@
 # include <stdio.h>
 # include <sys/wait.h>
 
-
-
-void    child_process(char **argv, char **envp, int *fd);
-void    parent_process(char **argv, char **envp, int *fd);
+void	child_process(char **argv, char **envp, int *fd);
+void	parent_process(char **argv, char **envp, int *fd);
+void	error_exit(const char *message);
 
 //utils
-char *get_path(char **envp);
-char    *find_cmd_path(char *cmd, char **envp);
-
+char	*get_path(char **envp);
+char	*find_cmd_path(char *cmd, char **envp);
 
 //libft
-int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -43,6 +41,4 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
 
-
 #endif
-
