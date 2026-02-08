@@ -6,7 +6,7 @@
 /*   By: lleineck <lleineck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 20:19:45 by leo               #+#    #+#             */
-/*   Updated: 2026/02/06 20:29:00 by lleineck         ###   ########.fr       */
+/*   Updated: 2026/02/08 16:43:37 by lleineck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parent_process(char **argv, char **envp, int *fd)
 
 	file2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file2 == -1)
-		error_exit("file2");
+		error_exit("file 2 error\n");
 	dup2(fd[0], STDIN_FILENO);
 	dup2(file2, STDOUT_FILENO); //pipe --> stdin --> cmd2 --> stdout --> file2//
 	close(file2);
@@ -28,15 +28,15 @@ void	parent_process(char **argv, char **envp, int *fd)
 	close(fd[1]);
 	cmd_args = ft_split(argv[3], ' ');
 	if (!cmd_args)
-		error_exit("split");
+		error_exit("split error\n");
 	cmd_path = find_cmd_path(cmd_args[0], envp);
 	if (!cmd_path)
 	{
 		free_split(cmd_args);
-		error_exit("command not found");
+		error_exit("command 2 not found\n");
 	}
 	execve(cmd_path, cmd_args, envp);
 	free_split(cmd_args);
 	free(cmd_path);
-	error_exit("execve");
+	error_exit("execve error\n");
 }

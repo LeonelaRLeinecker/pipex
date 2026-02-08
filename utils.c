@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <sys/stat.h>
 
 char	*get_path(char **envp)
 {
@@ -27,6 +26,16 @@ char	*get_path(char **envp)
 	return (NULL);
 }
 
+char	*full_path_checker(char *cmd)
+{
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+	}
+	return (NULL);
+}
+
 char	*find_cmd_path(char *cmd, char **envp)
 {
 	char	**paths;
@@ -36,12 +45,7 @@ char	*find_cmd_path(char *cmd, char **envp)
 
 	if (!cmd || !envp)
 		return (NULL);
-	if (ft_strchr(cmd, '/'))
-	{
-		if (acces(cmd, X_OK)== 0)
-			return(ft_strdup(cmd));
-		return (NULL);
-	}
+	full_path_checker(cmd);
 	paths = ft_split(get_path(envp), ':');
 	if (!paths)
 		return (NULL);
@@ -57,6 +61,21 @@ char	*find_cmd_path(char *cmd, char **envp)
 		i++;
 	}
 	return (free_split(paths), NULL);
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
 void	error_exit(const char *message)
