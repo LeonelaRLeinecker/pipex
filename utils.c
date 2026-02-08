@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <sys/stat.h>
 
 char	*get_path(char **envp)
 {
@@ -29,17 +30,18 @@ char	*get_path(char **envp)
 char	*find_cmd_path(char *cmd, char **envp)
 {
 	char	**paths;
-	//char	*path_from_envp;
 	char	*tmp;
 	char	*full_path;
 	int		i;
 
-	// ANTES DE ENTRAR AL BUCLE
-	// FIJATE SI TIENE PERMISOS PARA EJECUTARSE
-	// ACA USA A "ACCES"
 	if (!cmd || !envp)
 		return (NULL);
-    //path_from_envp = get_path(envp);
+	if (ft_strchr(cmd, '/'))
+	{
+		if (acces(cmd, X_OK)== 0)
+			return(ft_strdup(cmd));
+		return (NULL);
+	}
 	paths = ft_split(get_path(envp), ':');
 	if (!paths)
 		return (NULL);
