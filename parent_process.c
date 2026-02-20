@@ -6,7 +6,7 @@
 /*   By: lleineck <lleineck@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 20:19:45 by leo               #+#    #+#             */
-/*   Updated: 2026/02/08 16:43:37 by lleineck         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:35:03 by lleineck         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parent_process(char **argv, char **envp, int *fd)
 	if (file2 == -1)
 		error_exit("file 2 error\n");
 	dup2(fd[0], STDIN_FILENO);
-	dup2(file2, STDOUT_FILENO); //pipe --> stdin --> cmd2 --> stdout --> file2//
+	dup2(file2, STDOUT_FILENO);
 	close(file2);
 	close(fd[0]);
 	close(fd[1]);

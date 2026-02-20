@@ -45,7 +45,9 @@ char	*find_cmd_path(char *cmd, char **envp)
 
 	if (!cmd || !envp)
 		return (NULL);
-	full_path_checker(cmd);
+	full_path = full_path_checker(cmd);
+	if (full_path)
+		return (full_path);
 	paths = ft_split(get_path(envp), ':');
 	if (!paths)
 		return (NULL);
